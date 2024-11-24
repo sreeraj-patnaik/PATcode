@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Results Releaser</title>
+    <!-- Google Fonts for styling -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f3f3f3;
+            color: #333;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #1e3d58;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #333;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: #4caf50;
+        }
+
+        .btn-submit {
+            background-color: #4caf50;
+            color: white;
+            font-size: 1.2rem;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 30px;
+            display: none;
+            padding: 20px;
+            background-color: #f1f1f1;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .result.success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .result.error {
+            background-color: #fce4ec;
+            color: #d32f2f;
+        }
+
+        /* PDF Download Link */
+        .download-link {
+            margin-top: 20px;
+            display: none;
+            font-size: 1.2rem;
+        }
+
+        .download-link a {
+            color: #4caf50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .download-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Container -->
+    <div class="container">
+        <h1>University Results</h1>
+        <div class="input-group">
+            <label for="roll-number">Enter Your Roll Number</label>
+            <input type="text" id="roll-number" placeholder="Your Roll Number" />
+        </div>
+        <button class="btn-submit" onclick="checkResult()">Check Results</button>
+
+        <!-- Result Section -->
+        <div id="result" class="result"></div>
+        
+        <!-- Download Link Section -->
+        <div id="download-link" class="download-link">
+            <p><strong>Your results are available. <a id="pdf-link" href="#" target="_blank">Click here to download the PDF</a></strong></p>
+        </div>
+    </div>
+
+    <script>
+        // Function to simulate result checking
+        function checkResult() {
+            const rollNumber = document.getElementById("roll-number").value;
+            const resultDiv = document.getElementById("result");
+            const downloadLinkDiv = document.getElementById("download-link");
+            const pdfLink = document.getElementById("pdf-link");
+
+            // Simulating a simple result check. In real-world, this would connect to a database.
+            if (rollNumber === "") {
+                resultDiv.classList.remove("success", "error");
+                resultDiv.classList.add("error");
+                resultDiv.innerHTML = "Please enter your roll number.";
+                resultDiv.style.display = "block";
+                downloadLinkDiv.style.display = "none";
+            } else if (rollNumber === "9059659477") {
+                // Roll number matches
+                resultDiv.classList.remove("error");
+                resultDiv.classList.add("success");
+                resultDiv.innerHTML = `
+                    <strong>Result Found!</strong><br>
+                    <strong>Name:</strong>Dabbiru Abhinav<br>
+                    
+                `;
+                resultDiv.style.display = "block";
+
+                // Display the PDF download link
+                pdfLink.href = "results.pdf"; // Replace with the actual path to the PDF
+                downloadLinkDiv.style.display = "block";
+            } else {
+                resultDiv.classList.remove("success", "error");
+                resultDiv.classList.add("error");
+                resultDiv.innerHTML = "Result not found. Please check your roll number.";
+                resultDiv.style.display = "block";
+                downloadLinkDiv.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
